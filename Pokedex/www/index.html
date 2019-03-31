@@ -10,95 +10,114 @@
         <script src="https://code.jquery.com/jquery-git.js"></script>
     </head>
     <body style="background-color: rgb(161,036,054); padding: 5px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <img src="International_Pokémon_logo.svg.png" style="width: 100%">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <img class="img-responsive center-block" src="International_Pokémon_logo.svg.png" height="236" width="640">
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px;">
+                    <div id="Principal" class="col-xs-12">
+                        <div class="row text-center">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pokemon" style="margin-bottom: 20px;"/><br/>
+                                <button class="btn btn-primary" id="btnSearch" style="font-size: 20px; position: fixed;
+                                left: 0;
+                                bottom: 0;
+                                width: 100%;
+                                text-align: center;
+                                padding: 15px 0px 15px 0px">Encontrar Pokemon</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Detalhes" class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <img src="10175754730000.png" id="imgPokemon" height="200" width="200" style="border: silver outset 3px; background-color: white;">
+                                <br/>
+                                <small>Nome</small><br/>
+                                <strong id="Nome" style="font-size: 24px; text-transform: uppercase;"></strong>
+                                <br/>
+                                <small>Tipo</small><br/>
+                                <strong id="Tipo" style="font-size: 20px"></strong>
+                                <br/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-3">
+                                <table class="table table-dark" style="border-color: silver; border-style: outset; background-color: silver">
+                                    <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Valor Base</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>Velocidade</td>
+                                        <td id="speed"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Defesa Especial</td>
+                                        <td id="special-defense"></td>
+                                    </tr>
+                                        <tr>
+                                        <td>Ataque Especial</td>
+                                        <td id="special-attack"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Defesa</td>
+                                        <td id="defense"></td>
+                                    </tr>
+                                        <tr>
+                                        <td>Ataque</td>
+                                        <td id="attack"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pontos de Vida(HP)</td>
+                                        <td id="hp"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <div class="form-group">
+                                    <button id="VoltarPrincipal" class="btn btn-primary" style="font-size: 20px; position: fixed;
+                                    left: 0;
+                                    bottom: 0;
+                                    width: 100%;
+                                    text-align: center;
+                                    padding: 15px 0px 15px 0px">Voltar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="ERROR">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <img src="10175754730000.png" id="imgPokemon" height="200" width="200" style="border-color: silver; border-style: outset;">
+                                <br/>
+                                <strong id="Nome" style="font-size: 24px; text-transform: uppercase;">POKEMON NÃO ENCONTRADO</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <button id="VoltarError" class="btn btn-primary" style="font-size: 20px; position: fixed;
+                                    left: 0;
+                                    bottom: 0;
+                                    width: 100%;
+                                    text-align: center;
+                                    padding: 15px 0px 15px 0px">Voltar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div id="Principal" class="col-xs-12">
-                    <div class="row text-center">
-                        <div class="form-group">
-                            <input class="text" id="pokemon" style="margin-bottom: 20px;"/><br/>
-                            <button class="btn btn-primary" id="btnSearch" style="padding: 2px 50px 2px 50px; font-size: 20px">Encontrar Pokemon</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="Detalhes" class="col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-12 text-center">
-                            <img src="10175754730000.png" id="imgPokemon" height="200px" width="200px" style="border: silver outset 3px; background-color: white;">
-                            <br/>
-                            <small>Nome</small><br/>
-                            <strong id="Nome" style="font-size: 24px; text-transform: uppercase;"></strong>
-                            <br/>
-                            <small>Tipo</small><br/>
-                            <strong id="Tipo" style="font-size: 20px"></strong>
-                            <br/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-6 col-xs-offset-3">
-                            <table class="table table-condensed" style="border-color: silver; border-style: outset; background-color: silver">
-                                <thead>
-                                <tr>
-                                    <th>Status</th>
-                                    <th>Valor Base</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    <td>Velocidade</td>
-                                    <td id="speed"></td>
-                                </tr>
-                                <tr>
-                                    <td>Defesa Especial</td>
-                                    <td id="special-defense"></td>
-                                </tr>
-                                    <tr>
-                                    <td>Ataque Especial</td>
-                                    <td id="special-attack"></td>
-                                </tr>
-                                <tr>
-                                    <td>Defesa</td>
-                                    <td id="defense"></td>
-                                </tr>
-                                    <tr>
-                                    <td>Ataque</td>
-                                    <td id="attack"></td>
-                                </tr>
-                                <tr>
-                                    <td>Pontos de Vida(HP)</td>
-                                    <td id="hp"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 text-center"> 
-                            <button id="VoltarPrincipal" class="btn btn-primary" style="padding: 2px 50px 2px 50px; font-size: 20px">Voltar</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="ERROR">
-                    <div class="row">
-                        <div class="col-xs-12 text-center">
-                            <img src="10175754730000.png" id="imgPokemon" height="200" width="200" style="border-color: silver; border-style: outset;">
-                            <br/>
-                            <strong id="Nome" style="font-size: 24px; text-transform: uppercase;">POKEMON NÃO ENCONTRADO</strong>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 text-center">
-                            <button id="VoltarError" class="btn btn-primary" style="padding: 2px 50px 2px 50px; font-size: 20px">Voltar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
+        </body>
     <script>
         $("#Detalhes").hide();
         $("#ERROR").hide();
