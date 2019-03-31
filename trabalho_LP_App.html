@@ -1,0 +1,149 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-git.js"></script>
+    </head>
+    <body style="background-color: rgb(161,036,054); padding: 5px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <img src="International_Pokémon_logo.svg.png" height="236" width="640">
+                </div>
+            </div>
+            <div class="row">
+                <div id="Principal" class="col-xs-12">
+                    <div class="row text-center">
+                        <div class="form-group">
+                            <input class="text" id="pokemon" style="margin-bottom: 20px;"/><br/>
+                            <button class="btn btn-primary" id="btnSearch" style="padding: 2px 150px 2px 150px; font-size: 20px">Encontrar Pokemon</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="Detalhes" class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <img src="10175754730000.png" id="imgPokemon" height="200" width="200" style="border: silver outset 3px; background-color: white;">
+                            <br/>
+                            <small>Nome</small><br/>
+                            <strong id="Nome" style="font-size: 24px; text-transform: uppercase;"></strong>
+                            <br/>
+                            <small>Tipo</small><br/>
+                            <strong id="Tipo" style="font-size: 20px"></strong>
+                            <br/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <table class="table table-condensed" style="border-color: silver; border-style: outset; background-color: silver">
+                                <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Valor Base</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <td>Velocidade</td>
+                                    <td id="speed"></td>
+                                </tr>
+                                <tr>
+                                    <td>Defesa Especial</td>
+                                    <td id="special-defense"></td>
+                                </tr>
+                                    <tr>
+                                    <td>Ataque Especial</td>
+                                    <td id="special-attack"></td>
+                                </tr>
+                                <tr>
+                                    <td>Defesa</td>
+                                    <td id="defense"></td>
+                                </tr>
+                                    <tr>
+                                    <td>Ataque</td>
+                                    <td id="attack"></td>
+                                </tr>
+                                <tr>
+                                    <td>Pontos de Vida(HP)</td>
+                                    <td id="hp"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center"> 
+                            <button id="VoltarPrincipal" class="btn btn-primary" style="padding: 2px 150px 2px 150px; font-size: 20px">Voltar</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="ERROR">
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <img src="10175754730000.png" id="imgPokemon" height="200" width="200" style="border-color: silver; border-style: outset;">
+                            <br/>
+                            <strong id="Nome" style="font-size: 24px; text-transform: uppercase;">POKEMON NÃO ENCONTRADO</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center">
+                            <button id="VoltarError" class="btn btn-primary" style="padding: 2px 150px 2px 150px; font-size: 20px">Voltar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        $("#Detalhes").hide();
+        $("#ERROR").hide();
+
+        $("#VoltarPrincipal").click(function(){
+            $("#Detalhes").hide();
+            $("#Principal").slideDown();
+        });
+        $("#VoltarError").click(function(){
+            $("#ERROR").hide();
+            $("#Principal").slideDown();
+        });
+
+        $("#btnSearch").click(function(){
+            var pokemon = document.getElementById("pokemon").value;
+            if(pokemon == ""){
+                $("#Principal").slideUp();
+                $("#Detalhes").hide();
+                $("#ERROR").show();
+            }
+            else
+            {
+                $.ajax({
+                method: "GET",
+                url: "https://pokeapi.co/api/v2/pokemon/" + pokemon.toLowerCase() ,
+                accepts: "application/json",
+                })
+                    .done(function(data){
+                        $("#Principal").slideUp();
+                        $("#ERROR").hide();
+                        $("#Detalhes").show();
+                        var json = JSON.stringify(data);
+                        var obj = JSON.parse(json);
+                        $("#imgPokemon").attr("src", obj.sprites.front_default);
+                        $("#Nome").text(obj.name);
+                        $("#Tipo").text(obj.types[0].type.name);
+                        $("#speed").text(obj.stats[0].base_stat);
+                        $("#special-defense").text(obj.stats[1].base_stat);
+                        $("#special-attack").text(obj.stats[2].base_stat);
+                        $("#defense").text(obj.stats[3].base_stat);
+                        $("#attack").text(obj.stats[4].base_stat);
+                        $("#hp").text(obj.stats[5].base_stat);
+                    })
+                    .fail(function(){
+                        $("#Principal").slideUp();
+                        $("#ERROR").show();
+                    });
+            }
+        })
+    </script>
+</html>
